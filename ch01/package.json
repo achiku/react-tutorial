@@ -1,0 +1,13 @@
+{
+  "name": "ch01",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack"
+  },
+  "author": "achiku",
+  "license": "MIT",
+  "devDependencies": {
+    "webpack": "^2.4.1"
+  }
+}
