@@ -4,13 +4,11 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --config webpack.config.js",
-    "babel": "babel src/main.js",
     "start": "webpack-dev-server --hot --inline --progress"
   },
   "author": "achiku",
   "license": "MIT",
   "devDependencies": {
-    "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
     "babel-preset-env": "^1.4.0",
