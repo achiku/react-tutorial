@@ -1,9 +1,10 @@
 {
   "name": "ch01",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/main.js",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "serve": "webpack-dev-server --hot --inline"
   },
   "author": "achiku",
   "license": "MIT",
@@ -11,6 +12,7 @@
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
     "babel-preset-env": "^1.4.0",
-    "webpack": "^2.4.1"
+    "webpack": "^2.4.1",
+    "webpack-dev-server": "^2.4.2"
   }
 }
