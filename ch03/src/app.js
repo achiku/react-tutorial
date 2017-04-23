@@ -89,12 +89,14 @@ export class Game extends React.Component {
       }],
       xIsNext: true,
       stepNumber: 0,
+      selectedMove: 0,
     };
   }
   jumpTo(step) {
     this.setState({
       stepNumber: step,
       xIsNext: (step % 2) ? false : true,
+      selectedMove: step,
     });
   }
   handleClick(i) {
@@ -131,11 +133,19 @@ export class Game extends React.Component {
       } else {
         desc = 'Game Start'
       }
-      return (
-        <li key={move}>
-          <a href="#" onClick={() => this.jumpTo(move)}>{desc}</a>
-        </li>
-      );
+      if (this.state.selectedMove == move) {
+        return (
+          <li key={move}>
+            <a href="#" onClick={() => this.jumpTo(move)}>Selected: {desc}</a>
+          </li>
+        );
+      } else {
+        return (
+          <li key={move}>
+            <a href="#" onClick={() => this.jumpTo(move)}>{desc}</a>
+          </li>
+        );
+      }
     });
     const winner = calculateWinner(current.squares);
     let status;
