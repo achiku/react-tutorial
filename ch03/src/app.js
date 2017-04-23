@@ -55,12 +55,37 @@ class Board extends React.Component {
   }
 }
 
+function elemToPos(n, size) {
+  const pos = {
+    row: null,
+    col: null,
+  };
+  const i = n + 1
+  const x = i % size;
+  pos.col = x ? x : size;
+
+  const y = i / size
+  if (y <= 1) {
+    pos.row = 1
+  } else if (y <= 2) {
+    pos.row = 2
+  } else if (y <= 3) {
+    pos.row = 3
+  }
+  return pos
+}
+
 export class Game extends React.Component {
   constructor() {
     super();
     this.state = {
       history: [{
         squares: Array(9).fill(null),
+        position: {
+          row: null,
+          col: null,
+          player: null,
+        },
       }],
       xIsNext: true,
       stepNumber: 0,
@@ -71,19 +96,25 @@ export class Game extends React.Component {
       stepNumber: step,
       xIsNext: (step % 2) ? false : true,
     });
-    
   }
   handleClick(i) {
-		const history = this.state.history;
-		const current = history[this.state.stepNumber];
-		const squares = current.squares.slice();
+    const history = this.state.history;
+    const current = history[this.state.stepNumber];
+    const squares = current.squares.slice();
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
-    squares[i] = this.state.xIsNext ? 'X' : 'O';
+    const pos = elemToPos(i, 3);
+    const player = this.state.xIsNext ? 'X' : 'O';
+    squares[i] = player;
     this.setState({
       history: history.concat([{
-        squares: squares
+        squares: squares,
+        position: {
+          row: pos.row,
+          col: pos.col,
+          player: player,
+        },
       }]),
       xIsNext: !this.state.xIsNext,
       stepNumber: history.length,
@@ -93,7 +124,13 @@ export class Game extends React.Component {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
     const moves = history.map((step, move) => {
-      const desc = move ? 'Move #' + move : 'Game Start';
+      const pos = step.position;
+      var desc = '';
+      if (move) {
+        desc = 'Move #' + move + '(' + pos.row + ',' + pos.col + ')' + ' by ' + pos.player;
+      } else {
+        desc = 'Game Start'
+      }
       return (
         <li key={move}>
           <a href="#" onClick={() => this.jumpTo(move)}>{desc}</a>
