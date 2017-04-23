@@ -14,6 +14,7 @@ module.exports = {
       { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader' }
     ]
   },
+  devtool: 'inline-source-map',
   devServer: {
     contentBase: path.resolve(__dirname, 'public'),
     port: 3355,
