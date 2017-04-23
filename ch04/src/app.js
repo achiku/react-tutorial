@@ -1,30 +1,10 @@
 import React from 'react'
-import {calculateWinner, elemToPos} from './flowtest'
-
-
-function Square(props) {
-  return (
-    <button className="square" onClick={() => props.onClick()}>
-      {props.value}
-    </button>
-  );
-}
-
-function Move(props) {
-  if (props.isSelected) {
-    return (
-      <li key={props.move}>
-        <a href="#" onClick={() => props.onClick()}>x: {props.desc}</a>
-      </li>
-    );
-  } else {
-    return (
-      <li key={props.move}>
-        <a href="#" onClick={() => props.onClick()}>{props.desc}</a>
-      </li>
-    );
-  }
-}
+import {
+  calculateWinner,
+  elemToPos,
+  Square,
+  Move,
+} from './flowtest'
 
 class Board extends React.Component {
   constructor(props) {

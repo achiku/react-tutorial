@@ -1,4 +1,29 @@
 // @flow
+import React from 'react'
+
+export function Move(props: {isSelected: bool, desc: string, move:number, onClick: () => mixed}) {
+  if (props.isSelected) {
+    return (
+      <li key={props.move}>
+        <a href="#" onClick={() => props.onClick()}>x: {props.desc}</a>
+      </li>
+    );
+  } else {
+    return (
+      <li key={props.move}>
+        <a href="#" onClick={() => props.onClick()}>{props.desc}</a>
+      </li>
+    );
+  }
+}
+
+export function Square(props: {value: string, onClick: () => mixed}) {
+  return (
+    <button className="square" onClick={() => props.onClick()}>
+      {props.value}
+    </button>
+  );
+}
 
 export function calculateWinner(squares: string[]) :string {
   const lines = [
