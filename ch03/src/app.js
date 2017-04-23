@@ -28,6 +28,22 @@ function Square(props) {
   );
 }
 
+function Move(props) {
+  if (props.isSelected) {
+    return (
+      <li key={props.move}>
+        <a href="#" onClick={() => props.onClick()}>x: {props.desc}</a>
+      </li>
+    );
+  } else {
+    return (
+      <li key={props.move}>
+        <a href="#" onClick={() => props.onClick()}>{props.desc}</a>
+      </li>
+    );
+  }
+}
+
 class Board extends React.Component {
   renderSquare(i) {
     return <Square value={this.props.squres[i]} onClick={() => this.props.onClick(i)} />;
@@ -133,19 +149,13 @@ export class Game extends React.Component {
       } else {
         desc = 'Game Start'
       }
-      if (this.state.selectedMove == move) {
-        return (
-          <li key={move}>
-            <a href="#" onClick={() => this.jumpTo(move)}>Selected: {desc}</a>
-          </li>
-        );
-      } else {
-        return (
-          <li key={move}>
-            <a href="#" onClick={() => this.jumpTo(move)}>{desc}</a>
-          </li>
-        );
-      }
+      const isSelected = this.state.selectedMove == move
+      return <Move
+        key={move}
+        desc={desc}
+        isSelected={isSelected}
+        onClick={() => this.jumpTo(move)}
+      />;
     });
     const winner = calculateWinner(current.squares);
     let status;
