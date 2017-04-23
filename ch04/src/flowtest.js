@@ -2,19 +2,15 @@
 import React from 'react'
 
 export function Move(props: {isSelected: bool, desc: string, move:number, onClick: () => mixed}) {
+  var desc = props.desc
   if (props.isSelected) {
-    return (
-      <li key={props.move}>
-        <a href="#" onClick={() => props.onClick()}>x: {props.desc}</a>
-      </li>
-    );
-  } else {
-    return (
-      <li key={props.move}>
-        <a href="#" onClick={() => props.onClick()}>{props.desc}</a>
-      </li>
-    );
+    desc = `x: ${desc}`
   }
+  return (
+    <li key={props.move}>
+      <a href="#" onClick={() => props.onClick()}>{desc}</a>
+    </li>
+  );
 }
 
 export function Square(props: {value: string, onClick: () => mixed}) {
