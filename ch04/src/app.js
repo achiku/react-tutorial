@@ -1,28 +1,6 @@
 import React from 'react'
-import {foo} from './flowtest'
+import {calculateWinner, elemToPos} from './flowtest'
 
-console.log(foo(10))
-console.log(foo(0))
-
-function calculateWinner(squares) {
-  const lines = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-  ];
-  for (let i = 0; i < lines.length; i++) {
-    const [a, b, c] = lines[i];
-    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
-    }
-  }
-  return null;
-}
 
 function Square(props) {
   return (
@@ -78,25 +56,6 @@ class Board extends React.Component {
   }
 }
 
-function elemToPos(n, size) {
-  const pos = {
-    row: null,
-    col: null,
-  };
-  const i = n + 1
-  const x = i % size;
-  pos.col = x ? x : size;
-
-  const y = i / size
-  if (y <= 1) {
-    pos.row = 1
-  } else if (y <= 2) {
-    pos.row = 2
-  } else if (y <= 3) {
-    pos.row = 3
-  }
-  return pos
-}
 
 export class Game extends React.Component {
   constructor() {
