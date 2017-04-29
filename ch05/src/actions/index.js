@@ -10,8 +10,14 @@ export const VisibilityFilters = {
   SHOW_ACTIVE: 'SHOW_ACTIVE'
 }
 
+type AddTodoAction = {
+  type: "ADD_TODO",
+  id: number,
+  text: string
+}
+
 let nextTodoId :number = 0
-export function addTodo(text: string) {
+export function addTodo(text: string) :AddTodoAction {
   return {
     type: ADD_TODO,
     id: nextTodoId++,
@@ -19,16 +25,35 @@ export function addTodo(text: string) {
   }
 }
 
-export function toggleTodo(id: number) {
+type ToggleTodoAction = {
+  type: "TOGGLE_TODO",
+  id: number,
+}
+
+export function toggleTodo(id: number) :ToggleTodoAction {
   return {
     type: TOGGLE_TODO,
     id,
   }
 }
 
-export function setVisibilityFilter(filter: string) {
+type TodoAction =
+  | AddTodoAction
+  | ToggleTodoAction
+
+type SetVisibilityFilterAction = {
+  type: "SET_VISIBILITY_FILTER",
+  filter: string,
+}
+
+export function setVisibilityFilter(filter: string) :SetVisibilityFilterAction {
   return {
     type: SET_VISIBILITY_FILTER,
     filter,
   }
 }
+
+type FilterAction =
+  | SetVisibilityFilterAction
+
+export type { TodoAction, FilterAction }
