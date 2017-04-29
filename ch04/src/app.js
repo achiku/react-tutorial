@@ -1,52 +1,37 @@
+// @flow
 import React from 'react'
 import {
   calculateWinner,
   elemToPos,
   Square,
   Move,
+  Board,
 } from './flowtest'
-
-class Board extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  renderSquare(i) {
-    return <Square value={this.props.squres[i]} onClick={() => this.props.onClick(i)} />;
-  }
-  render() {
-    return (
-      <div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
-      </div>
-    );
-  }
-}
 
 
 export class Game extends React.Component {
+  state: {
+    history: {
+      squares: (string)[],
+      position: {
+        row: number,
+        col: number,
+        player: string,
+      },
+    }[],
+    stepNumber: number,
+    selectedMove: number,
+    xIsNext: bool,
+  };
   constructor() {
     super();
     this.state = {
       history: [{
-        squares: Array(9).fill(null),
+        squares: Array(9).fill(''),
         position: {
-          row: null,
-          col: null,
-          player: null,
+          row: 0,
+          col: 0,
+          player: '',
         },
       }],
       xIsNext: true,
@@ -54,14 +39,14 @@ export class Game extends React.Component {
       selectedMove: 0,
     };
   }
-  jumpTo(step) {
+  jumpTo(step: number) {
     this.setState({
       stepNumber: step,
       xIsNext: (step % 2) ? false : true,
       selectedMove: step,
     });
   }
-  handleClick(i) {
+  handleClick(i: number) {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
     const squares = current.squares.slice();
@@ -91,13 +76,14 @@ export class Game extends React.Component {
       const pos = step.position;
       var desc = '';
       if (move) {
-        desc = `Move #${move}  (${pos.row}, ${pos.col}) by ${pos.player}`;
+        desc = `Move #${move}  (${pos.row.toString()}, ${pos.col.toString()}) by ${pos.player}`;
       } else {
         desc = 'Game Start'
       }
       const isSelected = this.state.selectedMove == move
       return <Move
         key={move}
+        move={move}
         desc={desc}
         isSelected={isSelected}
         onClick={() => this.jumpTo(move)}

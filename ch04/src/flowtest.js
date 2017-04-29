@@ -1,7 +1,49 @@
 // @flow
 import React from 'react'
 
-export function Move(props: {isSelected: bool, desc: string, move:number, onClick: () => mixed}) {
+type BoardProps = {
+  squres: string[],
+  onClick: () => mixed,
+}
+
+export class Board extends React.Component {
+  constructor(props: BoardProps) {
+    super(props);
+  }
+  renderSquare(i: number) {
+    return <Square value={this.props.squres[i]} onClick={() => this.props.onClick(i)} />;
+  }
+  render() {
+    return (
+      <div>
+        <div className="board-row">
+          {this.renderSquare(0)}
+          {this.renderSquare(1)}
+          {this.renderSquare(2)}
+        </div>
+        <div className="board-row">
+          {this.renderSquare(3)}
+          {this.renderSquare(4)}
+          {this.renderSquare(5)}
+        </div>
+        <div className="board-row">
+          {this.renderSquare(6)}
+          {this.renderSquare(7)}
+          {this.renderSquare(8)}
+        </div>
+      </div>
+    );
+  }
+}
+
+type MoveProps = {
+  isSelected: bool,
+  desc: string,
+  move: number,
+  onClick: () => mixed,
+}
+
+export function Move(props: MoveProps) {
   var desc = props.desc
   if (props.isSelected) {
     desc = `x: ${desc}`
@@ -13,7 +55,12 @@ export function Move(props: {isSelected: bool, desc: string, move:number, onClic
   );
 }
 
-export function Square(props: {value: string, onClick: () => mixed}) {
+type SqureProps = {
+  value: string,
+  onClick: () => mixed,
+}
+
+export function Square(props: SqureProps) {
   return (
     <button className="square" onClick={() => props.onClick()}>
       {props.value}
